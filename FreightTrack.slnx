@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FreightTrack.API/FreightTrack.API.csproj" />
+  <Project Path="FreightTrack.Application/FreightTrack.Application.csproj" />
+  <Project Path="FreightTrack.Domain/FreightTrack.Domain.csproj" />
+  <Project Path="FreightTrack.Infrastructure/FreightTrack.Infrastructure.csproj" />
+</Solution>
