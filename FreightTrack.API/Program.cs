@@ -1,3 +1,4 @@
+using FreightTrack.API.Extensions;
 using FreightTrack.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<FreightTrackDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
+builder.Services.RegisterServices();
 var app = builder.Build();
 
 app.UseSwagger();
