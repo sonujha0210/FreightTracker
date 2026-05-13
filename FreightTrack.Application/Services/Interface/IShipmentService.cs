@@ -13,5 +13,9 @@ namespace FreightTrack.Application.Services.Interface
         Task<ShipmentDto> GetByIdAsync(int id);
 
         Task AddAsync(CreateShipmentDto dto);
+        
+        Task UpdateAsync(int id, CreateShipmentDto dto);
+        Task DeleteAsync(int id);
+
     }
 }

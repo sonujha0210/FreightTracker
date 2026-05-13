@@ -38,8 +38,8 @@ namespace FreightTrack.Application.Services.Implementation
         {
             var shipment = await _shipmentRepository.GetByIdAsync(id);
 
-            if (shipment == null)
-                return null;
+            if (shipment == null) return null;
+
 
             return new ShipmentDto
             {
@@ -66,6 +66,16 @@ namespace FreightTrack.Application.Services.Implementation
             };
 
             await _shipmentRepository.AddAsync(shipment);
+        }
+
+        public Task UpdateAsync(int id, CreateShipmentDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
