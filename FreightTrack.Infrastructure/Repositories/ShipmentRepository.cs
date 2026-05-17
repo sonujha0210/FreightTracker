@@ -40,10 +40,12 @@ namespace FreightTrack.Infrastructure.Repositories
             return await _context.Shipments.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Shipment shipment)
+        public async Task UpdateAsync(int id, Shipment shipment)
         {
             _context.Shipments.Update(shipment);
             await _context.SaveChangesAsync();
         }
+
+       
     }
 }

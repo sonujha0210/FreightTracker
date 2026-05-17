@@ -68,14 +68,21 @@ namespace FreightTrack.Application.Services.Implementation
             await _shipmentRepository.AddAsync(shipment);
         }
 
-        public async Task UpdateAsync(int id, CreateShipmentDto dto)
+       
+       public async Task UpdateAsync(int id, CreateShipmentDto dto)
         {
-            var shipment = await _shipmentRepository.UpdateAsync(id, dto);
+            var shipment = await _shipmentRepository.GetByIdAsync(id);
+            if (shipment == null) return;
+            shipment.Origin = dto.Origin;
+            shipment.Destination = dto.Destination;
+            shipment.UpdatedAt = DateTime.UtcNow;
+
+            await _shipmentRepository.UpdateAsync(id, shipment);
         }
 
         public Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            return _shipmentRepository.DeleteAsync(id);
         }
     }
 }
