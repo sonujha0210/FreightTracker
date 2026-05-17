@@ -10,7 +10,7 @@ namespace FreightTrack.Application.Interface
         Task<Shipment> GetByIdAsync(int id);
         Task<IEnumerable<Shipment>> GetAllAsync();
         Task AddAsync(Shipment shipment);
-        Task UpdateAsync(Shipment shipment);
+        Task UpdateAsync(int id, Shipment shipment);
         Task DeleteAsync(int id);
     }
 }
