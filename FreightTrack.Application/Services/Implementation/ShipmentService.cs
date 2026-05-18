@@ -84,5 +84,30 @@ namespace FreightTrack.Application.Services.Implementation
         {
             return _shipmentRepository.DeleteAsync(id);
         }
+        public async Task AddTrackingEventAsync(int shipmentId, AddTrackingEventDto dto)
+        {
+            var trackingEvent = new TrackingEvent
+            {
+                Status = dto.Status,
+                Location = dto.Location,
+                Notes = dto.Notes
+            };
+
+            await _shipmentRepository.AddTrackingEventAsync(shipmentId, trackingEvent);
+        }
+
+        public async Task<IEnumerable<TrackingEventDto>> GetTrackingHistoryAsync(int shipmentId)
+        {
+            var events = await _shipmentRepository.GetTrackingHistoryAsync(shipmentId);
+
+            return events.Select(e => new TrackingEventDto
+            {
+                Id = e.Id,
+                Status = e.Status,
+                Location = e.Location,
+                Timestamp = e.Timestamp,
+                Notes = e.Notes
+            });
+        }
     }
 }

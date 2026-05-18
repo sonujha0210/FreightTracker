@@ -45,7 +45,21 @@ namespace FreightTrack.Infrastructure.Repositories
             _context.Shipments.Update(shipment);
             await _context.SaveChangesAsync();
         }
+        public async Task AddTrackingEventAsync(int shipmentId, TrackingEvent trackingEvent)
+        {
+            trackingEvent.ShipmentId = shipmentId;
+            trackingEvent.Timestamp = DateTime.UtcNow;
+            await _context.TrackingEvents.AddAsync(trackingEvent);
+            await _context.SaveChangesAsync();
+        }
 
-       
+        public async Task<IEnumerable<TrackingEvent>> GetTrackingHistoryAsync(int shipmentId)
+        {
+            return await _context.TrackingEvents
+                .Where(t => t.ShipmentId == shipmentId)
+                .OrderByDescending(t => t.Timestamp)
+                .ToListAsync();
+        }
+
     }
 }

@@ -50,7 +50,20 @@ namespace FreightTrack.API.Controllers
         public async Task<IActionResult> DeleteShipment(int id)
         {
             await _shipmentService.DeleteAsync(id);
-            return NoContent();
+            return Ok("Shipment deleted successfully");
+        }
+        [HttpPost("{id}/events")]
+        public async Task<IActionResult> AddTrackingEvent(int id, [FromBody] AddTrackingEventDto dto)
+        {
+            await _shipmentService.AddTrackingEventAsync(id, dto);
+            return Ok("Tracking event added successfully");
+        }
+
+        [HttpGet("{id}/history")]
+        public async Task<IActionResult> GetTrackingHistory(int id)
+        {
+            var history = await _shipmentService.GetTrackingHistoryAsync(id);
+            return Ok(history);
         }
     }
 }

@@ -12,5 +12,7 @@ namespace FreightTrack.Application.Interface
         Task AddAsync(Shipment shipment);
         Task UpdateAsync(int id, Shipment shipment);
         Task DeleteAsync(int id);
+        Task AddTrackingEventAsync(int shipmentId, TrackingEvent trackingEvent);
+        Task<IEnumerable<TrackingEvent>> GetTrackingHistoryAsync(int shipmentId);
     }
 }
