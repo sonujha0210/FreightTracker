@@ -13,6 +13,7 @@ namespace FreightTrack.API.Extensions
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

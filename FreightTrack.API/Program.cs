@@ -1,4 +1,5 @@
 using FreightTrack.API.Extensions;
+using FreightTrack.API.JWTConffig;
 using FreightTrack.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +15,14 @@ builder.Services.AddDbContext<FreightTrackDbContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
 builder.Services.RegisterServices();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseHttpsRedirection();
+app.UseAuthentication(); // ADD THIS
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 

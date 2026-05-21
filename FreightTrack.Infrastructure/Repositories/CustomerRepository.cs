@@ -18,7 +18,7 @@ namespace FreightTrack.Infrastructure.Repositories
         public async Task AddAsync(Customer customer)
         {
             await _context.Customers.AddAsync(customer);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); 
         }
 
         public async Task<Customer> GetByEmailAsync(string email)
