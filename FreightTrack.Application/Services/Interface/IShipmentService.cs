@@ -18,5 +18,6 @@ namespace FreightTrack.Application.Services.Interface
         Task DeleteAsync(int id);
         Task AddTrackingEventAsync(int shipmentId, AddTrackingEventDto dto);
         Task<IEnumerable<TrackingEventDto>> GetTrackingHistoryAsync(int shipmentId);
+        Task<IEnumerable<ShipmentDto>> GetFilteredAsync(ShipmentFilterDto filter);
     }
 }

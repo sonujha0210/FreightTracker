@@ -109,5 +109,20 @@ namespace FreightTrack.Application.Services.Implementation
                 Notes = e.Notes
             });
         }
+        public async Task<IEnumerable<ShipmentDto>> GetFilteredAsync(ShipmentFilterDto filter)
+        {
+            var shipments = await _shipmentRepository.GetFilteredAsync(filter);
+
+            return shipments.Select(s => new ShipmentDto
+            {
+                Id = s.Id,
+                TrackingNumber = s.TrackingNumber,
+                Status = s.Status,
+                Origin = s.Origin,
+                Destination = s.Destination,
+                CustomerId = s.CustomerId,
+                CreatedAt = s.CreatedAt
+            });
+        }
     }
 }

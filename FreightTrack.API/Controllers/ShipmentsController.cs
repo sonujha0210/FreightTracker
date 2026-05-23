@@ -68,5 +68,11 @@ namespace FreightTrack.API.Controllers
             var history = await _shipmentService.GetTrackingHistoryAsync(id);
             return Ok(history);
         }
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetFiltered([FromQuery] ShipmentFilterDto filter)
+        {
+            var result = await _shipmentService.GetFilteredAsync(filter);
+            return Ok(result);
+        }
     }
 }

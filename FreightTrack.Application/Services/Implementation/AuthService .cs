@@ -60,24 +60,23 @@ public class AuthService : IAuthService
 
     private string GenerateToken(Customer customer)
     {
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
-
+        var secretKey = _configuration["JwtSettings:SecretKey"];
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
-            new Claim(ClaimTypes.Email, customer.Email),
-            new Claim(ClaimTypes.Role, customer.Role)
-        };
+        var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, customer.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, customer.Email),
+        new Claim(ClaimTypes.Role, customer.Role)
+    };
 
         var token = new JwtSecurityToken(
             issuer: _configuration["JwtSettings:Issuer"],
             audience: _configuration["JwtSettings:Audience"],
             claims: claims,
             expires: DateTime.UtcNow.AddDays(
-                int.Parse(_configuration["JwtSettings:ExpiryDays"])),
+                int.Parse(_configuration["JwtSettings:ExpiryDays"]!)),
             signingCredentials: credentials
         );
 

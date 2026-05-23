@@ -1,4 +1,5 @@
-﻿using FreightTrack.Application.Interface;
+﻿using FreightTrack.Application.DTO.Request;
+using FreightTrack.Application.Interface;
 using FreightTrack.Domain.Models;
 using FreightTrack.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,23 @@ namespace FreightTrack.Infrastructure.Repositories
                 .OrderByDescending(t => t.Timestamp)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Shipment>> GetFilteredAsync(ShipmentFilterDto filter)
+        {
+            var query = _context.Shipments.AsQueryable();
 
+            if (!string.IsNullOrEmpty(filter.Status))
+                query = query.Where(s => s.Status == filter.Status);
+
+            if (filter.CustomerId.HasValue)
+                query = query.Where(s => s.CustomerId == filter.CustomerId.Value);
+
+            if (filter.FromDate.HasValue)
+                query = query.Where(s => s.CreatedAt >= filter.FromDate.Value);
+
+            if (filter.ToDate.HasValue)
+                query = query.Where(s => s.CreatedAt <= filter.ToDate.Value);
+
+            return await query.ToListAsync();
+        }
     }
 }

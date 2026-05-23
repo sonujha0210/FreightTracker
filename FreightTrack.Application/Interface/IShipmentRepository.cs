@@ -1,4 +1,5 @@
-﻿using FreightTrack.Domain.Models;
+﻿using FreightTrack.Application.DTO.Request;
+using FreightTrack.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace FreightTrack.Application.Interface
         Task DeleteAsync(int id);
         Task AddTrackingEventAsync(int shipmentId, TrackingEvent trackingEvent);
         Task<IEnumerable<TrackingEvent>> GetTrackingHistoryAsync(int shipmentId);
+        Task<IEnumerable<Shipment>> GetFilteredAsync(ShipmentFilterDto filter);
     }
 }
