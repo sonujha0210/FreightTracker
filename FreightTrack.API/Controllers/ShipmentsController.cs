@@ -1,11 +1,14 @@
 ﻿using FreightTrack.Application.DTO.Request;
 using FreightTrack.Application.Services.Implementation;
 using FreightTrack.Application.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreightTrack.API.Controllers
 {
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ShipmentsController : ControllerBase
@@ -45,7 +48,7 @@ namespace FreightTrack.API.Controllers
             await _shipmentService.UpdateAsync(id, dto);
             return Ok("Shipment updated successfully");
         }
-
+        [Authorize(Roles ="Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteShipment(int id)
         {
