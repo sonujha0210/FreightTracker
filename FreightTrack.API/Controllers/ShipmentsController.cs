@@ -74,5 +74,6 @@ namespace FreightTrack.API.Controllers
             var result = await _shipmentService.GetFilteredAsync(filter);
             return Ok(result);
         }
+
     }
 }

@@ -1,5 +1,6 @@
 using FreightTrack.API.Extensions;
 using FreightTrack.API.JWTConffig;
+using FreightTrack.API.Middleware;
 using FreightTrack.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -64,8 +65,9 @@ builder.Services.AddAuthorization();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Debug);
-var app = builder.Build();
 
+var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 // Middleware
 app.UseSwagger();
 app.UseSwaggerUI();

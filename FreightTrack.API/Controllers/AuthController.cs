@@ -32,31 +32,7 @@ namespace FreightTrack.API.Controllers
             var result = await _authService.LoginAsync(dto);
             return Ok(result);
         }
-        [HttpGet("verify")]
-        public IActionResult Verify()
-        {
-            var secretKey = _configuration["JwtSettings:SecretKey"];
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
-                handler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = false
-                }, out _);
-                return Ok("Token valid");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
 
     }
 }
