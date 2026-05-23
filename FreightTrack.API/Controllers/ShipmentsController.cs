@@ -4,6 +4,7 @@ using FreightTrack.Application.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace FreightTrack.API.Controllers
 {
@@ -74,6 +75,21 @@ namespace FreightTrack.API.Controllers
             var result = await _shipmentService.GetFilteredAsync(filter);
             return Ok(result);
         }
+        [HttpGet("export")]
+        public async Task<IActionResult> ExportShipments()
+        {
+            var shipments = await _shipmentService.GetAllAsync();
 
+            var csv = new StringBuilder();
+            csv.AppendLine("Id,TrackingNumber,Status,Origin,Destination,CustomerId,CreatedAt");
+
+            foreach (var s in shipments)
+            {
+                csv.AppendLine($"{s.Id},{s.TrackingNumber},{s.Status},{s.Origin},{s.Destination},{s.CustomerId},{s.CreatedAt}");
+            }
+
+            var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+            return File(bytes, "text/csv", "shipments.csv");
+        }
     }
 }
