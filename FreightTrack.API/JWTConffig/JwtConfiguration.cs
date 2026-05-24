@@ -9,6 +9,8 @@ namespace FreightTrack.API.JWTConffig
         public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var secretKey = configuration["JwtSettings:SecretKey"]!;
+            var issuer = configuration["JwtSettings:Issuer"]!;
+            var audience = configuration["JwtSettings:Audience"]!;
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -20,12 +22,14 @@ namespace FreightTrack.API.JWTConffig
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(secretKey)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = false,
-                        ClockSkew = TimeSpan.Zero,
+                        ValidIssuer = issuer,
+                        ValidateIssuer = true,
+                        ValidAudience = audience,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(2),
                         RequireSignedTokens = true,
-                        RequireExpirationTime = false
+                        RequireExpirationTime = true
                     };
                 });
         }

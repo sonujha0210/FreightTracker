@@ -19,6 +19,12 @@ namespace FreightTrack.API.Controllers
             _authService = authService;
             _configuration = configuration;
         }
+        /// <summary>
+        /// Registers a new user account.
+        /// Accepts name, email, password, and role (defaults to "Customer").
+        /// Returns a JWT token, the user's role, and name upon success.
+        /// Throws if the email is already registered.
+        /// </summary>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
@@ -26,6 +32,11 @@ namespace FreightTrack.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Authenticates an existing user with email and password.
+        /// Returns a JWT token, the user's role, and name upon success.
+        /// Throws if the email is not found or the password is incorrect.
+        /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
