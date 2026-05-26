@@ -191,4 +191,4 @@ The API will be available at `https://localhost:7000` (or the port shown in your
 ## Author
 
 **Sonukumar Jha**  
-GitHub: [@sonujha0210](https://github.com/sonujha0210).
+GitHub: [@sonujha0210](https://github.com/sonujha0210)
