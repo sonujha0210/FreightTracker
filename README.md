@@ -1,4 +1,4 @@
-# FreightTrack API.
+# FreightTrack API
 
 A logistics shipment tracking REST API built with ASP.NET Core 7, Onion Architecture, Entity Framework Core, MySQL, and JWT Authentication with Role-Based Access Control.
 
